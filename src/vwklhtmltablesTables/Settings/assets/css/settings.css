@@ -1,0 +1,40 @@
+.vwklhtmltables-container .settings-list {
+    white-space: pre-line;
+    line-height: 0;
+}
+
+.vwklhtmltables-container .setting {
+	border-bottom: 1px solid gray;
+	white-space: pre-line;
+    line-height: 0;
+    padding: 2.2em 0;
+}
+
+.vwklhtmltables-container .vwklhtmltables-tooltip {
+	clear: both;
+	margin-left: 1em;
+}
+
+.vwklhtmltables-container a {
+	display: block;
+	margin-top: 1em;
+}
+
+.vwklhtmltables-container .setting .setting-description {
+	width: 30%;
+	display: inline-block;
+}
+
+.vwklhtmltables-container .setting .setting-description label {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.vwklhtmltables-container .setting .setting-control {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.vwklhtmltables-container .chosen-select {
+	min-width: 300px;
+}

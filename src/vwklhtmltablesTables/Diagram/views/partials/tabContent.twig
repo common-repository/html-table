@@ -1,0 +1,16 @@
+<div class="row row-tab" id="row-tab-diagrams">
+    {% set url = build_pro_url({ 'utm_medium': 'diagrams' })  %}
+
+    {% block content %}
+        <div class="col-xs-12">
+            <a href="{{ url }}" class="button button-hero" target="_blank">
+                {{ environment.translate('Get PRO') }}
+            </a>
+        </div>
+        <div class="col-xs-12">
+            <a href="{{ url }}" target="_blank">
+                <img src="{{ environment.getModule('diagram').getLocationUrl() }}/assets/img/diagrams.png" alt="Diagrams" title="Available in PRO version" style="width: 100%; height: auto;">
+            </a>
+        </div>
+    {% endblock %}
+</div>

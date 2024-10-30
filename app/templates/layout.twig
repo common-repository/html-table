@@ -1,0 +1,53 @@
+{% extends 'base.twig' %}
+
+{% block layout %}
+    <div class="vwklhtmltables-plugin">
+        <div class="vwklhtmltables-content">
+            <!-- /.vwklhtmltables-navigation vwklhtmltables-sticky vwklhtmltables-sticky-active -->
+            <div class="vwklhtmltables-container">
+                {{ environment.getDispatcher().dispatch('notices') }}
+                {% block content %}{% endblock %}
+
+                <div id="addDialog" style="display: none;" title="{{ environment.translate('Add new table') }}">
+                    <div style="min-height: 70px;">
+                        <form id="tableForm">
+                            <label for="addDialog_title">
+                                {{ environment.translate('Table title') }}
+                            </label>
+                            <input id="addDialog_title" class="vwklhtmltables-text" type="text" style="width:100%;"/>
+                            <!-- /#addDialog_title.regular-text -->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="addDialog_cols">
+                                        {{ environment.translate('Columns') }}
+                                    </label>
+                                    <input id="addDialog_cols" class="vwklhtmltables-text" type="number" value="5" min="1" max="100" style="width: 100%"/>
+                                    <!-- /#addDialog_cols -->
+                                </div>
+                                <!-- /.col-xs-6 -->
+                                <div class="col-xs-6">
+                                    <label for="addDialog_rows">
+                                        {{ environment.translate('Rows') }}
+                                    </label>
+                                    <input id="addDialog_rows" class="vwklhtmltables-text" type="number" value="5" min="1" max="100" style="width: 100%"/>
+                                    <!-- /#addDialog_rows -->
+                                </div>
+                                <!-- /.col-xs-6 -->
+                            </div>
+                            <!-- /.row -->
+                            <div style="padding-top: 5px;">{{ environment.translate('You can change number of Columns and Rows later') }}</div>
+                        </form>
+                        <div id="formError" style="color: red; display: none; float: left;">
+                            <p></p>
+                        </div>
+                        <!-- /#formError -->
+                    </div>
+                </div>
+                <!-- /#addDialog -->
+            </div>
+            <!-- /.vwklhtmltables-container -->
+        </div>
+        <!-- /.vwklhtmltables-content -->
+    </div>
+    <!-- /.vwklhtmltables-plugin -->
+{% endblock layout %}

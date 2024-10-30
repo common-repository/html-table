@@ -1,0 +1,325 @@
+#tableEditor {
+  width: 100%;
+  /* Cell states */
+  overflow: scroll;
+  z-index: 10;
+}
+div#tableEditor, .wtHolder {
+    height: 250px !important;
+    max-height: 250px !important;
+    min-height: 250px !important;
+}
+button#export, button#import {
+  display:none !important;
+}
+#tableEditor .colHeader {
+  cursor: pointer;
+}
+#tableEditor .ht_clone_left .wtHolder {
+  overflow: hidden;
+}
+#tableEditor .bold {
+  font-weight: bold;
+}
+#tableEditor .italic {
+  font-style: italic;
+}
+#tableEditor .underline {
+	text-decoration: underline;
+}
+
+#tableEditor img {
+  max-width: 100%;
+  height: auto;
+}
+/* Toolbar */
+#tableToolbar {
+  background-color: #e2dfdf;
+  border: 1px solid #cac4c4;
+  padding: 3px;
+  margin-bottom: 5px;
+}
+#tableToolbar > ul {
+  margin: 0;
+  display: inline;
+}
+#tableToolbar > ul > li {
+  margin: 0;
+  display: inline;
+}
+#tableToolbar > ul > li .toolbar-content {
+  display: none;
+}
+#tableToolbar > ul:after {
+  content: "|";
+  color: #d6d2d2;
+  font-size: 36px;
+  position: relative;
+  top: 3px;
+  font-weight: 100;
+}
+#tableToolbar button {
+  border: none;
+  background-color: transparent;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  padding: 2px 7px;
+}
+#tableToolbar button:hover {
+  -webkit-box-shadow: 0px 0px 1px 2px #beb7b7;
+  -moz-box-shadow: 0px 0px 1px 2px #beb7b7;
+  box-shadow: 0px 0px 1px 2px #beb7b7;
+}
+/* Toolbar Dropdown */
+.tool-container .tool-items .tool-item i {
+  margin-top: 11px;
+  color: #333;
+}
+
+/* Formula editor */
+#formulaEditor {
+	margin-bottom: 5px;
+}
+#formulaEditor #formula {
+	width: 95%;
+	height: 33px;
+	float: right;
+	font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+}
+#formulaEditor .formula-icon {
+	float: left;
+	font-size: .8em;
+	line-height: 33px;
+	width: 5%;
+	text-align: center;
+}
+#formulaEditor .formula-icon .function {
+	font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+	font-size: 1.3em;
+}
+
+i.background-fill-icon {
+    width: 19px;
+    background-position-y: -2px;
+    opacity: 0.7;
+    height: 15px;
+    display: inline-block;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAMFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9agToZAAAADnRSTlMAEBIgMEZYYICDjM/f71PBSEcAAABhSURBVHgBpctREoJQCEbhHwNRBPa/3Jg7FV3zKc/jN3Nwv9QL1FJ2/tEtMs66pT+Ok3J4Ks3KcZAmWl+G6lspsvMLDBZ5723Lvi+zBmM1W9E6DFahddiEpcMgZoJPRPinJwIbBXkikWnmAAAAAElFTkSuQmCC);
+}
+
+i.toolbar-word-wrap {
+  width: 19px;
+  opacity: 0.7;
+  background-position-y: 38px;
+  height: 15px;
+  display: inline-block;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAA8CAYAAABmdppWAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3woeCBYRrfH4ygAAAOtJREFUWMPtlj0KAjEQhT+DghewEmvvYK1XsPck2mljp5ewFSuxEy/gTfxBi9XYZCGEgNkkhT/zIGzC7jzy9s1MAn8LnYtD5d6ZEKajnttxJXkohALBd9ayrx82A+LuVSTrgHEGVkDX5ahZi3J+C9hhqeIC9ICjw1HZlDawNnEbH0eMyx0Td0pxeWzNr+bZiM3DifVdC1iY9eGdZNdRm+wJPKx3BTCIkaysIGXycAf0gW2s5KnZnQop31CXZ6H9QH9IgxH89Jmi5faVlXCUuw41sHQ7d9Vj1Df2uf9hkVPy3L2FpCT2UCpFkIgXYDJe06KFdBkAAAAASUVORK5CYII=);
+}
+i.toolbar-word-wrap.word-wrap-hidden {
+  background-position-y: -2px;
+}
+i.toolbar-word-wrap.word-wrap-visible {
+  background-position-y: 18px;
+}
+
+
+#tableEditor .ww-h {
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+}
+
+#tableEditor .ww-v {
+  white-space: nowrap;
+  overflow: visible;
+  max-width: 0;
+}
+
+#tableEditor .editable {
+  position: relative;
+}
+
+#tableEditor .editable:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 7px 0 0;
+    border-color: #029A0E transparent transparent transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+}
+
+#tableEditor .hiddenCell {
+	position: relative;
+}
+
+#tableEditor .hiddenCell:before {
+	content: '';
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 7px 7px;
+	border-color: transparent #FF0000 transparent transparent;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: block;
+}
+
+.tool-container.list {
+  height: auto!important;
+}
+
+.tool-container.list .tool-items .tool-item {
+  float: none!important;
+  width: 100%!important;
+  text-align: left;
+  line-height: 2em;
+  padding: 0 1em;
+  text-decoration: none;
+  color: #444;
+}
+
+.tool-container.list a.active {
+  font-weight: bold;
+  color: #222;
+}
+
+#tableEditor .formula.htNumeric.htInvalid {
+  background-color: transparent!important;
+}
+
+#tableToolbar i.formats-icon {
+  font-weight: bold;
+  color: #444444;
+}
+
+#tableToolbar i.formats-icon:before {
+  content: '$, %'
+}
+
+/* Default cells style */
+.handsontable th, .handsontable td {
+	color: #000;
+	background: #fff;
+}
+
+/* Add Diagram Pro Feature Dialog */
+#previewDiagramProFeature .tab-switch:after {
+	content: '';
+	display: block;
+	margin-bottom: 1em;
+	border-bottom: 1px solid #999;
+}
+#previewDiagramProFeature .tab-switch a {
+	display: inline-block;
+	margin: 0 5px -1px;
+	border: 1px solid #999;
+	font-size: 15px;
+	color: #28282a;
+	line-height: 31px;
+	padding: 0 8px 1px;
+	text-decoration: none;
+}
+#previewDiagramProFeature .tab-switch a.active {
+	border-bottom: 1px solid white;
+}
+#previewDiagramProFeature .tab-switch a:focus {
+	box-shadow: none;
+	outline: none;
+}
+#previewDiagramProFeature .tabs .tab {
+	display: none;
+}
+#previewDiagramProFeature .tabs .tab.active {
+	display: block;
+}
+input.stbCopyTextCode.vwklhtmltables-tooltip-right.tooltipstered {
+    width: 250px !important;
+    border: 1px solid #068cda !important;
+}
+ul.subsubsub.tabs-wrapper {
+    display: none !important;
+}
+.vwklhtmltables-plugin .button {
+    margin: 20px 10px;
+    padding: 5px 20px !important;
+    height: auto !important;
+    background: #dadada !important;
+    border: 0px solid #9c9c9c !important;
+    color: #696969 !important;
+    font-weight: 600 !important;
+  border-radius:2px !important;
+}
+.vwklhtmltables-plugin .button:hover {
+    margin: 20px 10px;
+    padding: 5px 20px !important;
+    height: auto !important;
+    background: #333 !important;
+    border: 0px solid #9c9c9c !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+@media (max-width: 810px) {
+	#tableToolbar > ul:after {
+		content: none;
+	}
+	#formulaEditor .formula-icon {
+		width: 10%;
+	}
+	#formulaEditor #formula {
+		width: 90%;
+	}
+}
+@media (max-width: 450px) {
+	#formulaEditor .formula-icon {
+		width: 15%;
+	}
+	#formulaEditor #formula {
+		width: 85%;
+	}
+}
+.table-editor-remove {
+  display:none !important;
+}
+.col-md-4 h3 {
+    border-bottom: 2px solid #b7b7b7;
+    padding-bottom: 15px;
+}
+i.fa.fa-question.vwklhtmltables-tooltip.tooltipstered {
+    display: none !important;
+}
+h2.table-title.tooltipstered {
+    border-bottom: 2px solid #000000;
+    float: left;
+    width: auto;
+    margin-top: -19px;
+    min-width: 130px;
+}
+
+.container-fluid {
+    padding-top: 30px !important;
+}
+div#wpcontent {
+    background: #fff !important;
+}
+ul.subsubsub.control-buttons {
+    display: block;
+    width: 100%;
+}
+
+span.table-namerino {
+    float: left;
+    font-size: 30px;
+    color: #a9a9a9;
+    margin-right: 13px;
+}
+input.stbCopyTextCode.vwklhtmltables-tooltip-right.tooltipstered {
+    width: 250px !important;
+    border: 1px solid #068cda !important;
+    background: #068cda !important;
+    color: #fff !important;
+}

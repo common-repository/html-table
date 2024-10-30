@@ -1,0 +1,264 @@
+{% macro cell(cell, rowIndex, cellIndex, tag, context) %}
+    {% set data = cell.data %}
+
+    {% if context.table.settings.styling.paragraphMode %}
+        {% set data = data | raw | nl2br %}
+    {% endif %}
+
+    {% if cell.hidden == true %}
+        {% set display = false %}
+        {% set colspan = 1 %}
+        {% set rowspan = 1 %}
+        {% for mergedCell in context.table.meta.mergedCells %}
+            {% if mergedCell.row == rowIndex - 1 and mergedCell.col == cellIndex %}
+                {% set display = true %}
+                {% set colspan = mergedCell.colspan %}
+                {% set rowspan = mergedCell.rowspan %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if cell.hiddenCell != true %}
+        <{{tag}}
+        data-cell-id="{{ context.cols[cellIndex] ~ rowIndex }}"
+        data-x="{{ cellIndex }}"
+        data-y="{{ rowIndex }}"
+        class="{{ cell.meta | join(' ') | trim }}"
+
+        {% if cell.comment is defined %}
+            title="{{ cell.comment }}"
+        {% endif %}
+
+        {% if cell.type is not empty %}
+            data-cell-type="{{ cell.type }}"
+        {% endif %}
+
+        {% if cell.formatType is not empty %}
+            data-cell-format-type="{{ cell.formatType }}"
+        {% endif %}
+
+        {% if cell.format is not empty %}
+            data-cell-format="{{ cell.format }}"
+        {% endif %}
+
+        {% if cell.dateOrder is defined %}
+            data-order="{{ cell.dateOrder }}"
+        {% endif %}
+
+        {% if cell.data[:1] == '=' %}
+            data-formula="{{ cell.data | slice(1) }}"
+            {% set data = cell.calculatedValue %}
+        {% elseif cell.data[:2] == '`=' %}
+            {% set data = cell.data | slice(1) %}
+        {% endif %}
+
+        data-original-value="{{ data | e }}"
+
+        {% if context.table.settings.styling.compact is not defined and rowIndex == '1'%}
+            {% if context.table.meta.columnsWidth is defined %}
+                style="width: {{ context.table.meta.columnsWidth[cellIndex] }}%;"
+            {% else %}
+                width="{{ cell.width }}"
+            {% endif %}
+        {% endif %}
+
+        {% if cell.hidden == 1 %}
+            {% if display == false %}
+                data-hide="true"
+            {% endif %}
+            data-colspan="{{ colspan }}"
+            data-rowspan="{{ rowspan }}"
+        {% endif %}
+        >{{ data | raw }}</{{tag}}>
+    {% endif %}
+{% endmacro %}
+
+{% spaceless %}
+    {% import _self as m %}
+    {% set cols = 'A'..'Z' %}
+    <div class="spinner"></div>
+    <div id="vwklhtmltables-table-{{ table.view_id }}" class="vwklhtmltables-tables-wrap
+        {# set it here to apply to the pagination block #}
+        {% if 'paging' in table.settings.features | keys %}
+            {{ table.settings.paginationSize | default('pagination-large') }}
+        {% endif %}" style="visibility: hidden;">
+
+        {% block before_table %}{% endblock %}
+
+        <table
+            class="vwklhtmltables-table {{ table.settings.styling | keys | join(' ') }} 
+            {% if 'border' in table.settings.styling | keys %}
+                {{ table.settings.styling.border }}
+            {% endif %}"
+            id="vwklhtmltables-table-{{ table.id }}" 
+            data-id="{{ table.id }}"
+            data-title="{{ table.encoded_title }}"
+            data-features="{{ table.settings.features | keys | json_encode | e }}"
+            data-pagination-length="{{ table.settings.paginationMenuLength }}"
+            data-lang="{{ table.settings.language.file }}" 
+            data-override="{{ table.settings.language | json_encode | e }}"
+            data-auto-index="{{ table.settings.autoIndex }}"
+            data-searching-settings="{{ table.settings.searching | json_encode | e  }}"
+            {% if 'useNumberFormat' in table.settings | keys %}
+                data-number-format="{{ table.settings.numberFormat | default('1,0.00') }}"
+            {% endif %}
+            data-currency-format="{{ table.settings.currencyFormat | default('$1,0.00') }}"
+            {% if 'ordering' in table.settings.features | keys %}
+                data-sort-order="{{ table.settings.sortingOrder }}"
+                data-sort-column="{{ table.settings.sortingOrderColumn }}"
+            {% endif %}
+            data-head="{{ table.settings.elements.head }}"
+            {% if 'headerRowsCount' in table.settings | keys %}
+                data-head-rows-count="{{ table.settings.headerRowsCount | default(1) }}"
+            {% endif %}
+            {% if 'fixedHeader' in table.settings | keys %}
+                data-fixed-head="{{ table.settings.fixedHeader }}"
+            {% endif %}
+            data-foot="{{ table.settings.elements.foot }}"
+            {% if 'fixedFooter' in table.settings | keys %}
+                data-fixed-foot="{{ table.settings.fixedFooter }}"
+            {% endif %}
+            {% if 'fixedHeader' in table.settings | keys or 'fixedFooter' in table.settings | keys %}
+                data-fixed-height = "{{ table.settings.fixedHeight|default(400) }}"
+            {% endif %}
+            {% if 'fixedColumns' in table.settings | keys %}
+                data-fixed-cols="{{ table.settings.fixedColumns }}"
+                data-fixed-left="{{ table.settings.fixedLeftColumnsCount }}"
+                data-fixed-right="{{ table.settings.fixedRightColumnsCount }}"
+            {% endif %}
+            data-responsive-mode="{{ table.settings.responsiveMode|default(1) }}"
+            {% block table_attributes %}{% endblock %}
+        >
+
+            {% block caption %}
+                {% if table.settings.elements.caption is defined %}
+                    <caption class="table-title"
+                    {% if table.settings.elements.description is defined and table.settings.elements.descriptionText is defined %}
+                        style="margin-bottom: 0;"
+                    {% endif %}>
+                        {{ table.title | title }}
+                    </caption>
+                {% endif %}
+            {% endblock %}
+
+            {% block description %}
+                     {% if table.settings.elements.description is defined and table.settings.elements.descriptionText is defined %}
+                    <caption class="table-desc">{{ table.settings.elements.descriptionText | raw }}</caption>
+                {% endif %}
+            {% endblock %}
+
+            {% if table.settings.elements.head is defined %}
+                {% set headRowsCount = table.settings.headerRowsCount | default(1)%}
+            {% else %}
+                {% set headRowsCount = 1 %}
+            {% endif %}
+            {% set headRows = table.rows | slice(0, headRowsCount) %}
+            {% set addHeaderAutoIndex = true %}
+            {% block thead %}
+                <thead>
+                    {% for row in headRows %}
+                        {% set headRowNumber = loop.index %}
+                        {% set existHeaderRow = false %}
+
+                        {% for cellIndex, cell in row.cells %}
+                            {% if cell.hiddenCell == false %}
+                                {% set existHeaderRow = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if existHeaderRow == true %}
+                            <tr>
+                                {% if table.settings.autoIndex == 'new' and addHeaderAutoIndex == true %}
+                                    <th width="0" rowspan="{{ headRowsCount }}"></th>
+                                    {% set addHeaderAutoIndex = false %}
+                                {% endif %}
+
+                                {% for cellIndex, cell in row.cells %}
+                                    {% if table.settings.elements.head is defined %}
+                                        {{ m.cell(cell, headRowNumber, cellIndex, 'th', _context) }}
+                                    {% else %}
+                                        {% if cell.hiddenCell != true%}
+                                            <th style="width:{{ table.meta.columnsWidth[cellIndex] }}%; padding: 0 !important;"></th>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </thead>
+            {% endblock %}
+
+            {% block tfoot %}
+                {% if table.settings.elements.foot is defined %}
+                    <tfoot>
+                    {% set footRow = table.rows | first %}
+                    {% set existFooterRow = false %}
+
+                    {% for column in footRow %}
+                        {% for cellIndex, cell in column %}
+                            {% if cell.hiddenCell == false %}
+                                {% set existFooterRow = true %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% if existFooterRow == true %}
+                        <tr>
+                            {% if table.settings.autoIndex == 'new' %}
+                                <th></th>
+                            {% endif %}
+
+                            {% for column in footRow %}
+                                {% for cellIndex, cell in column %}
+                                    {{ m.cell(cell, 1, cellIndex, 'th', _context) }}
+                                {% endfor %}
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                    </tfoot>
+                {% endif %}
+            {% endblock %}
+
+            {% block tbody %}
+            <tbody>
+                {% for row in table.rows | slice(table.settings.elements.head or table.settings.elements.foot ? headRowsCount : 0) %}
+                    {% set rowNumber = loop.index + (table.settings.elements.head or table.settings.elements.foot ? headRowsCount : 0) %}
+                    {% set existBodyRow = false %}
+
+                    {% for cellIndex, cell in row.cells %}
+                        {% if cell.hiddenCell == false %}
+                            {% set existBodyRow = true %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if existBodyRow == true %}
+                        <tr 
+                            {% if row.height != 'NaN' and row.height | length > 1 %}
+                                style="height: {{ row.height }}px"
+                            {% endif %}
+                        >
+                            {% if table.settings.autoIndex == 'new' %}
+                                <td></td>
+                            {% endif %}
+
+                            {% for cellIndex, cell in row.cells %}
+                                {{ m.cell(cell, rowNumber, cellIndex, 'td', _context) }}
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            {% endblock %}
+        </table>
+        <!-- /#vwklhtmltables-table-{{ table.id }}.vwklhtmltables-table -->
+
+        {% block after_table %}{% endblock %}
+
+        <div id="vwklhtmltables-table-{{ table.id }}-css" style="display: none;">{{ table.meta.css }}</div>
+    </div>
+    <!-- /.vwklhtmltables-tables-wrap -->
+
+    <!-- Tables Generator by vwklhtmltables -->
+    <!-- Version: {{ environment.getConfig().get('plugin_version') }} -->
+    <!-- http://vwklhtmltables.com/ -->
+{% endspaceless %}

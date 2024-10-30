@@ -1,0 +1,135 @@
+.vwklhtmltables-overview {
+    width: 100%;
+    background: #fff;
+    float: left;
+}
+
+.vwklhtmltables-overview .half-page-left {
+    float: left;
+    margin-left: 20px;
+    width: 50%;
+    border-right: 1px solid rgba(164, 170, 172, 0.28);
+    padding-right: 20px;
+}
+
+.vwklhtmltables-overview .half-page-right {
+    float: left;
+    margin:0 20px;
+    width: 40%;
+}
+
+.vwklhtmltables-overview .description {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(164, 170, 172, 0.28);
+}
+
+.vwklhtmltables-overview .faq-title {
+    cursor: pointer;
+}
+
+.vwklhtmltables-overview .faq-title .description {
+    margin-top: 10px;
+    border: none !important;
+}
+
+.vwklhtmltables-overview .faq-list {
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(164, 170, 172, 0.28);
+}
+
+.vwklhtmltables-overview .faq-title,
+.vwklhtmltables-overview-news h3 {
+    padding: 10px 20px;
+    margin-bottom: 4px;
+    background-color: rgba(164, 170, 172, 0.28);
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news h3 {
+    line-height: 2;
+}
+
+.vwklhtmltables-overview .button {
+    float: right;
+    margin-top: 24px;
+    display: block;
+}
+
+.vwklhtmltables-overview .video {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(164, 170, 172, 0.28);
+}
+
+.vwklhtmltables-overview .settings-title {
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news {
+    margin-right: 10px;
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news p,
+.vwklhtmltables-overview .vwklhtmltables-overview-news ul {
+    white-space: normal !important;
+    margin:0 8px;
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news ul {
+    list-style-type: disc;
+}
+
+.vwklhtmltables-overview .vwklhtmltables-overview-news li {
+    margin-left: 20px;
+}
+
+.vwklhtmltables-overview form {
+    border: none !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.vwklhtmltables-overview form label {
+    float: left;
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.vwklhtmltables-overview form input,
+.vwklhtmltables-overview form select,
+.vwklhtmltables-overview form textarea {
+    float: left;
+    margin-left: 50px;
+    width: calc(100% - 50px);
+}
+
+.toplevel_page_vwklhtmltables-tables > .wp-submenu li:nth-child(2) {
+    display: none;
+}
+
+.vwklhtmltables-overview form label {
+    float: left;
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+#contact-form-dialog p {
+    font-size: 15px;
+}
+#contact-form-dialog a {
+    color: #4ae8ea;
+}
+#contact-form-dialog a:focus {
+    outline: none;
+}

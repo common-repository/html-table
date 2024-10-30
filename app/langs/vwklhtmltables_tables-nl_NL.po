@@ -1,0 +1,759 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.3\n"
+
+msgid "An error has occurred"
+msgstr "Er is een fout opgetreden"
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Add new table"
+msgstr "Voeg nieuwe tabel toe"
+
+msgid "Tables"
+msgstr "Tabellen"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "License"
+msgstr "Licentie"
+
+msgid "Table title"
+msgstr "Tabel titel"
+
+msgid "Columns"
+msgstr "Kolommen"
+
+msgid "Rows"
+msgstr "Rijen"
+
+msgid "You can change number of Columns and Rows later"
+msgstr ""
+
+msgid "Invalid range specified."
+msgstr "Ongeldig bereik opgegeven."
+
+msgid "Failed to find diagram %s."
+msgstr "Kan diagram %s niet vinden."
+
+msgid "Failed to find table %s."
+msgstr "Vinden van tabel %s mislukt."
+
+msgid "Add diagram"
+msgstr "Nieuwe Dragram"
+
+msgid "The table ID %s not found."
+msgstr "Tabel ID %s is niet gevonden."
+
+msgid "Frontend Export"
+msgstr ""
+
+msgid "Allow export table to pdf, csv, xls on frontend"
+msgstr ""
+
+msgid "Export Logo"
+msgstr ""
+
+msgid "Automticaly appends selected logo for output pdf or printing"
+msgstr ""
+
+msgid "Logo Position"
+msgstr ""
+
+msgid "Above table"
+msgstr ""
+
+msgid "Below table"
+msgstr ""
+
+msgid "Logo Alignment"
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Center"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Export table"
+msgstr "Exporteer Tabel"
+
+msgid "Select file type to export table"
+msgstr "Selecteer bestandstype om tabel te exporteren"
+
+msgid "Import error"
+msgstr "Fout bij importeren"
+
+msgid "Failed to import selected file"
+msgstr "Importeren van geselecteerde bestand is mislukt"
+
+msgid "Import to the table"
+msgstr "Importeren naar tabel"
+
+msgid "File extension type"
+msgstr "Bestand extensie"
+
+msgid "Import settings"
+msgstr "Import instellingen"
+
+msgid "Delimiter"
+msgstr "Delimiter"
+
+msgid "Url"
+msgstr "Url"
+
+msgid "Failed to import data from the uploaded file"
+msgstr "Importeren van geuploade bestand is mislukt"
+
+msgid "Failed to upload selected file"
+msgstr "Uploaden van geselecteerde bestand is mislukt"
+
+msgid "Activate License"
+msgstr "Activeer Licentie"
+
+msgid "Renew License"
+msgstr "Verleng Licentie"
+
+msgid "Slider by vwklhtmltables"
+msgstr "Slider by vwklhtmltables"
+
+msgid ""
+"Congratulations! You have successfully installed and activated PRO version of "
+"' ~ environment.getMenu().getMenuTitle() ~ ' plugin."
+msgstr ""
+"Gefeliciteerd! Het installeren en activeren van de PRO versie van ' ~ "
+"environment.getMenu().getMenuTitle() ~ ' plugin is gelukt. "
+
+msgid "Your premium support is expired in ' ~ days ~ ' days"
+msgstr "Uw premium ondersteuning verloopt over ' ~ dagen ~ ' dagen"
+
+msgid "You will not be able to update your pro version with expired license"
+msgstr "U kunt uw pro versie niet updaten wanneer de licentie is verlopen"
+
+msgid "Activate"
+msgstr "Activeer"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Add editable field"
+msgstr ""
+
+msgid "Save as"
+msgstr "Opslaan als"
+
+msgid "Diagrams"
+msgstr "Diagrammen"
+
+msgid "Get PRO"
+msgstr "Neem PRO"
+
+msgid "Your message successfully send. We contact you soon."
+msgstr ""
+
+msgid "Undefined"
+msgstr ""
+
+msgid "Step-by-step Tutorial"
+msgstr ""
+
+msgid "Begin Step-by-step Tutorial"
+msgstr ""
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Subject"
+msgstr "Onderwerp"
+
+msgid "Topic"
+msgstr "Topic"
+
+msgid "Plugin options"
+msgstr "Plugin instellingen"
+
+msgid "Report a bug"
+msgstr "Meld een fout"
+
+msgid "Require a new functionallity"
+msgstr "Ik heb een nieuwe functie nodig"
+
+msgid "Other"
+msgstr "Anders"
+
+msgid "Message"
+msgstr "Bericht"
+
+msgid "Hello vwklhtmltables Team!"
+msgstr "Hallo vwklhtmltables Team!"
+
+msgid ""
+"Some errors occurred while sending mail please send your message trough this "
+"contact form:"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Close Tutorial"
+msgstr ""
+
+msgid "Welcome to Data Tables plugin by vwklhtmltables!"
+msgstr ""
+
+msgid ""
+"Thank you for choosing our Data Tables plugin. Just click here to start using "
+"it - and we will show you it's possibilities and powerfull features."
+msgstr ""
+
+msgid "Hello! This is the Data Tables by vwklhtmltables"
+msgstr ""
+
+msgid ""
+"Thank you for choosing our Data Tables plugin. Let’s make a quick tour "
+"through features and main options of the plugin. Just click “Next” button."
+msgstr ""
+
+msgid "Create your first table"
+msgstr ""
+
+msgid ""
+"Click on the button “Add new table” and see the first form, which you need to "
+"fill in. A very simple step!"
+msgstr ""
+
+msgid "Enter the name and create Data Table"
+msgstr ""
+
+msgid ""
+"Fill the table title and choose the number of columns and rows. Don’t worry, "
+"you will be able to change it (add or delete some) later!"
+msgstr ""
+
+msgid ""
+"Main Settings of your first table. Here you can see main settings which are "
+"conected with languages, table elements, styling and other different editors "
+"settings. Generally it’s a tab where you can edit the visual part of the "
+"whole table, switch on/off the responsive mode, set pagination etc."
+msgstr ""
+
+msgid "Editor"
+msgstr "Bewerker"
+
+msgid ""
+"The most important part of settings - Editor. Here you can fill all the cells "
+"of your table, add some colors, play with fonts and sizes. This insert also "
+"allows you to change the alignment of your font, add formats (percents, "
+"currency), images and links to make your table more visual attraction."
+msgstr ""
+
+msgid "Preview"
+msgstr "Weergeven"
+
+msgid ""
+"Preview insert for your comfort. Before updating the table on your page - you "
+"can see the result of your efforts and changes, look at it and enjoy the "
+"final outcome."
+msgstr ""
+
+msgid "CSS Editor"
+msgstr ""
+
+msgid ""
+"In case you have special or at least, basic knowledge of CSS code - you can "
+"easily change the table here. Just make sure that you know, what you are "
+"doing and you will not destroy the table."
+msgstr ""
+
+msgid ""
+"Diagrams - this is a Pro feature of our plugin, which can help you to follow "
+"the statistics of your table. Several types for every taste and any wishes."
+msgstr ""
+
+msgid "Import/Export"
+msgstr ""
+
+msgid ""
+"With these two buttons in our Pro version you can Import any table of csv "
+"format and Export the whole table, which you have done."
+msgstr ""
+
+msgid "Well done!"
+msgstr ""
+
+msgid ""
+"<b>Upgrading</b> <br>Once you have purchased Premium version of plugin  - "
+"you’ll have to enter license key (you can find it in your personal account on "
+"our site). Go to the License tab and enter your email and license key. Once "
+"you have activated your PRO license - you can use all its advanced options. "
+"<br><br>That’s all. From this moment you can use your Data Table without any "
+"doubt. But if you still have some question - do not hesitate to contact us "
+"through our <a href=\"https://vwklhtmltables.com/contact-us/\">internal support</"
+"a> or on our <a href=\"http://vwklhtmltables.com/forum/datatable-plugin/"
+"\">vwklhtmltables Forum.</a> Besides you can always describe your questions on <a "
+"href=\"https://wordpress.org/support/plugin/data-tables-generator-by-vwklhtmltables"
+"\">WordPress Ultimate Forum.</a> <br><br><b>Enjoy this plugin?</b> <br>It "
+"will be nice if you`ll help us and boost plugin with <a href=\"https://"
+"wordpress.org/support/view/plugin-reviews/data-tables-generator-by-vwklhtmltables?"
+"rate=5#postform/\">Five Stars rating on WordPress.org.</a> <br><br>We hope "
+"that you like our Data Table plugin and wish you all the best! Good luck!"
+msgstr ""
+
+msgid "Welcome to our plugin"
+msgstr ""
+
+msgid "by vwklhtmltables!"
+msgstr ""
+
+msgid ""
+"We are trying to make your using of our plugin maximum comfortable and easy. "
+"So we find it like the best way to tell you about some options and features "
+"of this plugin."
+msgstr ""
+
+msgid "A small guide for the first-time user"
+msgstr ""
+
+msgid ""
+"Actually, Data Table plugin is very simple and has a lot of different options "
+"at the same time. That’s why when you close this article I will show you the "
+"main of them, but the very detailed one you can find on our site. I hope that "
+"you will have no questions after even this small guide. For the first time we "
+"will help you to install and create your first table, but if you need help - "
+"contact us through the internal support"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid ""
+"We really like what we do and feel responsibility for our “child”. Constantly "
+"we are trying to change something or update the new features, but sometimes "
+"you may have a situation when you need help or have a problem. We can offer "
+"you two kinds of help: "
+msgstr ""
+
+msgid ""
+"<a href=\"//vwklhtmltables.com/forum/datatable-plugin/\" target=\"_blank\"> "
+"Contact us </a> through the Forum on our site - if you have some question, "
+"offer or wish."
+msgstr ""
+
+msgid ""
+"If, unfortunately, you have some problem - we are ready to help you in our <a "
+"href=\"//vwklhtmltables.com/contact-us/\" target=\"_blank\">internal support.</a>"
+msgstr ""
+
+msgid "Feel free to contact us and don’t worry, everything gonna be ok!"
+msgstr ""
+
+msgid "Video Tutorial"
+msgstr ""
+
+msgid "Frequently Asked Questions"
+msgstr ""
+
+msgid "Make data table responsive"
+msgstr ""
+
+msgid ""
+"I need to have line breaks/spaces between the paragraphs within the cells."
+msgstr ""
+
+msgid "How to use formulas in the table?"
+msgstr ""
+
+msgid "Go to Editor of Data Table."
+msgstr ""
+
+msgid ""
+"Select a cell and start typing. In a cell, type an equal sign “=” to start "
+"the formula."
+msgstr ""
+
+msgid "Fill in the rest of the formula."
+msgstr ""
+
+msgid "Save the changes of table."
+msgstr ""
+
+msgid "Check the result of formula in the table on your site."
+msgstr ""
+
+msgid ""
+"Learn more about how to do this <a href=\"//vwklhtmltables.com/how-to-use-tables/"
+"\" target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "Check all other FAQs"
+msgstr ""
+
+msgid "PRO option"
+msgstr "PRO optie"
+
+msgid "Can't decode table rows from JSON."
+msgstr "Decoderen van tabel rijen van JSON mislukt"
+
+msgid "Can't decode table meta from JSON."
+msgstr "Decoderen van tabel gegevens van JSON mislukt"
+
+msgid "Failed to save table meta data: %s"
+msgstr "Opslaan van tabel gegevens: %s mislukt"
+
+msgid "The table with ID %d not exists."
+msgstr "Tabel met ID %d bestaat niet."
+
+msgid "Add table"
+msgstr "Nieuwe tabel"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Shortcode"
+msgstr "Shortcode"
+
+msgid "PHP"
+msgstr "PHP"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Edit table \"%s\""
+msgstr "Bewerk tabel \"%s\""
+
+msgid "Click to rename the table and hit [Enter]"
+msgstr "Om te hernoemen klik en druk op [Enter]"
+
+msgid "CSS"
+msgstr "CSS"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Clone"
+msgstr "KopiÃ«ren"
+
+msgid "Export available only in PRO version."
+msgstr "Exporteren is alleen besschikbaar in PRO versie."
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Import available only in PRO version."
+msgstr "Importeren is alleen besschikbaar in PRO versie."
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Loading your table, please wait..."
+msgstr "Bezig met laden van tabel, een ogenblik..."
+
+msgid "Bold"
+msgstr "Vetgedrukt"
+
+msgid "Italic"
+msgstr "Schuigedruky"
+
+msgid "Text color"
+msgstr "Tekstkleur"
+
+msgid "Background color"
+msgstr "Achtergrondkleur"
+
+msgid "Alignment"
+msgstr "Uitlijning"
+
+msgid "Vertical alignment"
+msgstr "Verticaal uitlijnen"
+
+msgid "Word wrapping"
+msgstr "Woord wrappen"
+
+msgid "Create a link"
+msgstr "Maak een link"
+
+msgid "Insert picture"
+msgstr "Afbeelding invoegen"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "Formats"
+msgstr ""
+
+msgid "Table elements"
+msgstr "Tabel elementen"
+
+msgid "Caption"
+msgstr "Onderschrift"
+
+msgid "Header"
+msgstr "Kopschrift"
+
+msgid "Footer"
+msgstr "Voetschrift"
+
+msgid "Auto Index"
+msgstr "Automatische indexering"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "Select language"
+msgstr "Selecteer taal"
+
+msgid "Overwrite table text"
+msgstr "Tabel tekst overschrijven"
+
+msgid "No data available in table"
+msgstr ""
+
+msgid "Empty table"
+msgstr ""
+
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
+msgid "Info text"
+msgstr ""
+
+msgid "Showing 0 to 0 of 0 entries"
+msgstr ""
+
+msgid "Empty info text"
+msgstr ""
+
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+msgid "Filtered info text"
+msgstr ""
+
+msgid "Show _MENU_ entries"
+msgstr ""
+
+msgid "Length text"
+msgstr ""
+
+msgid "Search:"
+msgstr ""
+
+msgid "Search label"
+msgstr ""
+
+msgid "No matching records are found"
+msgstr ""
+
+msgid "Zero records"
+msgstr ""
+
+msgid "Features"
+msgstr "Kenmerken"
+
+msgid "Auto Width"
+msgstr "Automatische breedte"
+
+msgid "Sorting"
+msgstr "Sorteren"
+
+msgid "Sorting Order"
+msgstr "Sorteervolgorde"
+
+msgid "Ascending"
+msgstr "Oplopend"
+
+msgid "Descending"
+msgstr "Aflopend"
+
+msgid "Sorting Column"
+msgstr "Kolom sorteren"
+
+msgid "Number of column to apply sort order."
+msgstr "Nummer van kolom om te sorteren"
+
+msgid "Pagination"
+msgstr "Paginering"
+
+msgid "Pagination menu length"
+msgstr "Paginereing menu lengte"
+
+msgid "Searching"
+msgstr "Zoekt"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Table information display field. %s"
+msgstr "Tabel informatie weergave veld. %s"
+
+msgid "Disallow Indexing"
+msgstr "Indexering niet toegestaan"
+
+msgid "Disable indexing table for search bots"
+msgstr "Deactiveer indexering in tabel for zoekmachines"
+
+msgid "Editor settings"
+msgstr ""
+
+msgid "Currency Format"
+msgstr ""
+
+msgid "Set output format for currencies e.g ($ 1,000.00, € 1.00)"
+msgstr ""
+
+msgid "Percent Format"
+msgstr ""
+
+msgid "Set output format for percent numbers e.g (0.00%, 1%)"
+msgstr ""
+
+msgid "Date Format"
+msgstr ""
+
+msgid "Set output format for date e.g (YYYY-MM-DD, MM.DD.YYYY)"
+msgstr ""
+
+msgid "Styling"
+msgstr "Opmaak"
+
+msgid "Borders"
+msgstr "Randen"
+
+msgid ""
+"Cell - adds border around all four sides of each cell, Row – adds border only "
+"over and under each row. (i.e. only for the rows)."
+msgstr ""
+
+msgid "Cell"
+msgstr "Cel"
+
+msgid "Row"
+msgstr "Rij"
+
+msgid "Compact"
+msgstr "Compact"
+
+msgid "Reduce the amount of white-space."
+msgstr "Reduceer de hoeveelheid witte ruimte"
+
+msgid "Highlighting"
+msgstr "Markering"
+
+msgid "Row highlighting on mouse over."
+msgstr "Rij markeren bij mouse-over"
+
+msgid "Disable Wrapping"
+msgstr "Deactiveer wrappen"
+
+msgid ""
+"Disable wrapping of content in the table, so all text in the cells is on a "
+"single line."
+msgstr ""
+"Deactiveer wrappen van tabelinhoud, kortom zal de tekst op een enkele lijn "
+"blijven."
+
+msgid "Highlight the Order Column"
+msgstr "Markeer het selecteerde kolom"
+
+msgid "Row Striping"
+msgstr "Rij striping"
+
+msgid "Responsive Mode"
+msgstr ""
+
+msgid ""
+"Standard Responsive mode - in this mode if table content doesn’t fit all "
+"columns become under each other with one cell per row"
+msgstr ""
+
+msgid ""
+"Automatic column hiding - in this mode table columns will collapse from right "
+"to left if content does not fit to parent container width"
+msgstr ""
+
+msgid ""
+"Horizontal scroll - in this mode scroll bar will be added if table overflows "
+"parent container width"
+msgstr ""
+
+msgid "Disable Responsivity - default table fluid layout"
+msgstr ""
+
+msgid "Standard Responsive mode"
+msgstr ""
+
+msgid "Automatic column hiding"
+msgstr ""
+
+msgid "Horizontal scroll"
+msgstr ""
+
+msgid "Disable Responsivity"
+msgstr ""
+
+msgid "Paragraph Mode"
+msgstr ""
+
+msgid ""
+"This mode allows you to separate the content into paragraphs. To move to a "
+"new line in the cell - please press CTRL + Enter."
+msgstr ""
+
+msgid ""
+"Note that the table may look a little different depending on your theme style."
+msgstr ""
+"Houdt er rekening mee dat het tabel er een beetje anders uit kan komen te "
+"zien, conform je Thema."
+
+msgid "Get PRO version"
+msgstr "Neem de PRO versie"
+
+msgid "Editable fields"
+msgstr ""
+
+msgid "PRO version"
+msgstr ""
+
+msgid ""
+"Please be advised that this option is available only in %s. You can %s today "
+"and get this and other PRO option for your tables!"
+msgstr ""
+
+msgid "Insert url"
+msgstr ""
+
+msgid "Link Text"
+msgstr ""
+
+msgid "Open link in a new tab"
+msgstr ""
+
+#~ msgid ""
+#~ "Cell - adds border around all four sides of each cell, Row â adds border "
+#~ "only over and under each row. (i.e. only for the rows)."
+#~ msgstr ""
+#~ "Cel - voegt een rand toe aan rondom elke cel, Rij - voegt een rand toe "
+#~ "onder elke rij."

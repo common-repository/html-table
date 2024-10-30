@@ -1,0 +1,1132 @@
+{% extends 'layout.twig' %}
+
+{% macro checked(option) %}
+{% if option is defined and option == 'on' %}
+checked="checked"
+{% endif %}
+{% endmacro %}
+
+
+
+{% block content %}
+
+{% import _self as checkbox %}
+{% import '@ui/tooltip.twig' as tooltip %}
+
+<div class="vwklhtmltables-item">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-title-wrap">
+                    <div class="clear"></div>
+                    <!-- /.clear -->
+                </div>
+                <!-- /.table-title-wrap -->
+            </div>
+            <!-- /.col-xs-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="table-namerino">Table Name:</span>
+                <h2 class="table-title" contenteditable="true"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                data-table-title="{{ table.title }}"
+                title="{{ environment.translate('Click to rename the table and hit [Enter]') }}">
+                {{ table.title }}
+            </h2>
+            <ul class="subsubsub tabs-wrapper">
+                <li>
+                    <a href="#row-tab-editor" class="current button">
+                        <!-- /.fa fa-fw fa-th -->
+                        {{ environment.translate('Editor') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="#row-tab-settings" class="button">
+                        <!-- /.fa fa-fw fa-wrench -->
+                        {{ environment.translate('Settings') }}
+                    </a>
+                </li>
+
+                {{ environment.getDispatcher().dispatch('tabs_rendered', [table]) }}
+            </ul>
+
+            <ul class="subsubsub control-buttons">
+                <li>
+                    <button id="buttonSave" class="button">
+                        {{ environment.translate('Save') }}
+                    </button>
+                </li>
+                <li class="table-editor-remove">
+                    <button id="buttonClone" class="button">
+                        {{ environment.translate('Clone') }}
+                    </button>
+                </li>
+                {{ environment.getDispatcher().dispatch('tables-view-buttons-left') }}
+                <li>
+                    <button id="export" class="button {% if environment.isPro() == false %}pro-notify{% endif %}" data-message="{{ environment.translate('Export available only in PRO version.') }}">
+                        <i class="fa fa-fw fa-upload"></i>
+                        {{ environment.translate('Export') }}
+                    </button>
+                </li>
+                <li>
+                    <button id="import" class="button {% if environment.isPro() == false %}pro-notify{% endif %}" data-message="{{ environment.translate('Import available only in PRO version.') }}">
+                        <i class="fa fa-fw fa-download"></i>
+                        {{ environment.translate('Import') }}
+                    </button>
+                </li>
+                {{ environment.getDispatcher().dispatch('tables-view-buttons-right') }}
+                <li>
+                    <button id="buttonClearData" class="button">
+                        {{ environment.translate('Clear Data') }}
+                    </button>
+                </li>
+                <li>
+                    <button id="buttonDelete" class="button">
+                        {{ environment.translate('Delete') }}
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+        <!-- /.col-xs-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row row-tab" id="row-tab-editor">
+        <div class="col-xs-12">
+
+            <div id="loadingProgress">
+                <p class="description">
+                    <i class="fa fa-fw fa-spin fa-circle-o-notch"></i>
+                    <!-- /.fa fa-fw fa-spin fa-circle-o-notch -->
+                    {{ environment.translate('Loading your table, please wait...') }}
+                </p>
+                <!-- /.description -->
+            </div>
+            <!-- /#loadingProgress -->
+
+            <div id="tableToolbar">
+                <ul>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Rows')) }} data-toolbar="#toolbar-rows">
+                            Rows
+                            <!-- /.fa fa-fw fa-th-list -->
+                        </button>
+                        <div id="toolbar-rows" class="toolbar-content">
+                            <a href="#" data-method="row">
+                                <i class="fa fa-fw fa-plus"></i>
+                                <!-- /.fa fa-fw fa-plus -->
+                            </a>
+                            <a href="#" data-method="remove_row">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                                <!-- /.fa fa-fw fa-trash-o -->
+                            </a>
+                        </div>
+                        <!-- /#toolbar-rows -->
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Columns')) }} data-toolbar="#toolbar-cols">
+                            Columns
+                            <!-- /.fa fa-fw fa-th-large -->
+                        </button>
+                        <div id="toolbar-cols" class="toolbar-content">
+                            <a href="#" data-method="column">
+                                <i class="fa fa-fw fa-plus"></i>
+                                <!-- /.fa fa-fw fa-plus -->
+                            </a>
+                            <a href="#" data-method="remove_col">
+                                <i class="fa fa-fw fa-trash-o"></i>
+                                <!-- /.fa fa-fw fa-trash-o -->
+                            </a>
+                        </div>
+                        <!-- /#toolbar-cols -->
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Bold')) }} data-method="bold">
+                            <i class="fa fa-fw fa-bold"></i>
+                            <!-- /.fa fa-fw fa-bold -->
+                        </button>
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Italic')) }} data-method="italic">
+                            <i class="fa fa-fw fa-italic"></i>
+                            <!-- /.fa fa-fw fa-italic -->
+                        </button>
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Underline')) }} data-method="underline">
+                            <i class="fa fa-fw fa-underline"></i>
+                            <!-- /.fa fa-fw fa-italic -->
+                        </button>
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Text color')) }} id="textColor">
+                            <i class="fa fa-fw fa-font"></i>
+                            <!-- /.fa fa-fw fa-file-text-o -->
+                        </button>
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Background color')) }} id="bgColor">
+                            <i class="fa-fw background-fill-icon"></i>
+                            <!-- /.fa fa-fw fa-tint -->
+                        </button>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Alignment')) }} data-toolbar="#toolbar-alignment">
+                            <i class="fa fa-fw fa-align-left"></i>
+                            <!-- /.fa fa-fw fa-align-left -->
+                        </button>
+                        <div id="toolbar-alignment" class="toolbar-content">
+                            <a href="#" data-method="left">
+                                <i class="fa fa-fw fa-align-left"></i>
+                                <!-- /.fa fa-fw fa-align-left -->
+                            </a><br/>
+                            <a href="#" data-method="center">
+                                <i class="fa fa-fw fa-align-center"></i>
+                                <!-- /.fa fa-fw fa-align-center -->
+                            </a><br/>
+                            <a href="#" data-method="right">
+                                <i class="fa fa-fw fa-align-right"></i>
+                                <!-- /.fa fa-fw fa-align-right -->
+                            </a>
+                        </div>
+                        <!-- /#toolbar-alignment -->
+                    </li>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Vertical alignment')) }} data-toolbar="#toolbar-alignment-vertical">
+                            <i class="fa fa-fw fa-align-left fa-rotate-90"></i>
+                            <!-- /.fa fa-fw fa-align-left fa-rotate-90 -->
+                        </button>
+                        <div id="toolbar-alignment-vertical" class="toolbar-content">
+                            <a href="#" data-method="top">
+                                <sup><i class="fa fa-fw fa-align-center"></i></sup>
+                                <!-- /.fa fa-fw fa-align-center -->
+                            </a>
+                            <a href="#" data-method="middle">
+                                <small><i class="fa fa-fw fa-align-center"></i></small>
+                                <!-- /.fa fa-fw fa-align-center -->
+                            </a>
+                            <a href="#" data-method="bottom">
+                                <sub style="bottom: -.6em"><i class="fa fa-fw fa-align-center"></i></sub>
+                                <!-- /.fa fa-fw fa-align-right -->
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul>    
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Create a link')) }} data-method="link">
+                            <i class="fa fa-fw fa-link"></i>
+                        </button>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <button {{ tooltip.attr(environment.translate('Insert picture')) }} data-method="picture">
+                            <i class="fa fa-fw fa-picture-o"></i>
+                        </button>
+                    </li>
+                </ul>
+
+
+                {{ environment.getDispatcher().dispatch('toolbar_rendered', [table]) }}
+            </div>
+            <!-- /#tableToolbar -->
+
+
+            <!-- /#formulaEditor -->
+
+            <div id="tableEditor"></div>
+            <!-- /#tableEditor -->
+        </div>
+        <!-- /.col-xs-12 -->
+    </div>
+    <!-- /.row -->
+    <form id="settings">
+        <div class="row row-tab" id="row-tab-settings">
+            <div class="stbCopyTextCodeSelectionShell col-md-12 col-sm-12 col-xs-12">
+                <select name="shortcode_example" id="stbCopyTextCodeExamples">
+                    {% for value, option in {'shortcode': 'Table Shortcode', 'php_code': 'Table PHP code', 'shortcode_single_cell': 'Single Cell Shortcode'} %}
+                    <option value="{{ value }}">
+                        {{ option }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <span class="stbCopyTextCodeShowBlock" data-for="shortcode" style="display: none;">
+                    {% set shortcode = '[' ~ shortcode_name ~ ' id=' ~ table.id ~ ']' %}
+                    <input type="text" name="stbCopyTextCode" value="{{ shortcode }}"
+                    class="stbCopyTextCode vwklhtmltables-tooltip-right tooltipstered" readonly="readonly" style="width: 200px;">
+                </span>
+                <span class="stbCopyTextCodeShowBlock" data-for="php_code" style="display: none;">
+                    {% set php_code = '<?php echo do_shortcode("[' ~ shortcode_name ~ ' id=' ~ table.id ~ ']"); ?>' %}
+                    <input type="text" name="stbCopyTextCode" value="{{ php_code }}"
+                    class="stbCopyTextCode vwklhtmltables-tooltip-right tooltipstered" readonly="readonly" style="width: 400px;">
+                </span>
+                <span class="stbCopyTextCodeShowBlock" data-for="shortcode_single_cell" style="display: none;">
+                    {% set shortcode_cell_data = '[' ~ shortcode_cell_data_name ~ ' id=' ~ table.id ~ ' row=1 col=1]' %}
+                    <input type="text" name="stbCopyTextCode" value="{{ shortcode_cell_data }}"
+                    class="stbCopyTextCode vwklhtmltables-tooltip-right tooltipstered" readonly="readonly" style="width: 300px;">
+                </span>
+                {{ tooltip.icon('
+                <b>Table Shortcode:</b> lets display the table in the site content.<br /><br />
+                <b>Table PHP code:</b> lets display the table through themes/plugins files (for example in the site footer). You can use any shortcode in this way.<br /><br />
+                <b>Single Cell Shortcode:</b> lets display a value of single table cell in the site content.', 'top', true) }}
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h3>{{ environment.translate('Table Settings') }}</h3>
+                <table class="form-table">
+                    <tr class="table-editor-remove">
+                        <th scope="row">
+                            <label for="table-elements-caption">
+                                {{ environment.translate('Display Table Title') }}
+                                {{ tooltip.icon('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/caption.jpg"/>', 'top', true) }}
+                            </label>
+                        </th>
+                        <td>
+                            <input type="checkbox" name="elements[caption]"
+                            {{ checkbox.checked(table.settings.elements.caption) }}
+                            id="table-elements-caption"/>
+                            <!-- /#table-elements-caption -->
+                        </td>
+                    </tr>
+                    <tr class="table-editor-remove">
+                        <th scope="row">
+                            <label for="table-elements-description">
+                                {{ environment.translate('Display Table Description') }}
+                                {{ tooltip.icon('You can add short decsription to the table between title and table', 'top', true) }}
+                            </label>
+                        </th>
+                        <td>
+                            <input type="checkbox" name="elements[description]"
+                            {{ checkbox.checked(table.settings.elements.description) }}
+                            id="table-elements-description"
+                            data-target-toggle=".table-elements-description-options"/>
+                            <!-- /#table-elements-caption -->
+                        </td>
+                    </tr>
+                    <tr class="table-elements-description-options table-editor-remove"
+                    {% if table.settings.elements.description is not defined %}
+                    style="display:none"
+                    {% endif %}>
+                    <th scope="row">
+                        <label for="table-elements-description-text">
+                            {{ environment.translate('Description Text') }}
+                        </label>
+                    </th>
+                    <td>
+                        <textarea id="descriptionText" style="width: 100%; min-height: 100px;">{{ table.settings.elements.descriptionText | default('') }}</textarea>
+                        <input type="hidden" name="elements[descriptionText]" value="{{ table.settings.elements.descriptionText | default('') }}"
+                        id="table-elements-description-text"/>
+                        <!-- /#table-elements-caption -->
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="table-elements-head">
+                            {{ environment.translate('Table Header') }}
+                            {{ tooltip.icon('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/Header.jpg"/>', 'top', true) }}
+                        </label>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="elements[head]"
+                        {{ checkbox.checked(table.settings.elements.head) }}
+                        id="table-elements-head"
+                        data-target-toggle=".table-elements-head-options"/>
+                        <!-- /#table-elements-head -->
+                    </td>
+                </tr>
+                <tr class="table-elements-head-options"
+                {% if table.settings.elements.head is not defined %}
+                style="display:none"
+                {% endif %}
+                >
+                <th scope="row">
+                    <label for="headerRowsCount">
+                        {{ environment.translate('Count of Header Rows') }}
+                        {{ tooltip.icon(environment.translate('Count of table rows, which will be moved to header.')) }}
+                    </label>
+                </th>
+                <td>
+                    <input name="headerRowsCount" id="headerRowsCount" type="text" value="{{ table.settings.headerRowsCount | default(1) }}">
+                </td>
+            </tr>
+            <tr class="table-editor-remove">
+                <th scope="row">
+                    <label for="table-elements-foot">
+                        {{ environment.translate('Table Footer') }}
+                        {{ tooltip.icon('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/footer.jpg"/>', 'top', true) }}
+                    </label>
+                </th>
+                <td>
+                    <input type="checkbox" name="elements[foot]"
+                    {{ checkbox.checked(table.settings.elements.foot) }}
+                    id="table-elements-foot"/>
+                    <!-- /#table-elements-foot -->
+                </td>
+            </tr>
+            <tr class="table-editor-remove">
+                <th scope="row">
+                    <label for="features-fixed-header">
+                        {{ environment.translate('Fixed Header') }}
+                        {{ tooltip.icon(environment.translate('Allows to fix the table\'s header during table scrolling. Important! Header option must be enabled for using this feature. Also you need to set Fixed Table Height to create a vertical scroll at the table. To see the work of this feature you should not use such Responsive Modes as Standard and Automatic columns hiding.')) }}
+                    </label>
+                </th>
+                <td>
+                    <input type="checkbox" name="fixedHeader"
+                    {{ checkbox.checked(table.settings.fixedHeader) }}
+                    id="features-fixed-header"
+                    class="features-fixed-header-footer"/>
+                    <!-- /#features-fixed-header -->
+                </td>
+            </tr>
+            <tr class="table-editor-remove">
+                <th scope="row">
+                    <label for="features-fixed-footer">
+                        {{ environment.translate('Fixed Footer') }}
+                        {{ tooltip.icon(environment.translate('Allows to fix the table\'s footer during table scrolling. Important! Footer option must be enabled for using this feature. Also you need to set Fixed Table Height to create a vertical scroll at the table. To see the work of this feature you should not use such Responsive Modes as Standard and Automatic columns hiding.')) }}
+                    </label>
+                </th>
+                <td>
+                    <input type="checkbox" name="fixedFooter"
+                    {{ checkbox.checked(table.settings.fixedFooter) }}
+                    id="features-fixed-footer"
+                    class="features-fixed-header-footer"/>
+                    <!-- /#features-fixed-footer -->
+                </td>
+            </tr>
+            <tr class="features-fixed-height table-editor-remove"
+            {% if table.settings.fixedHeader is not defined and table.settings.fixedFooter is not defined %}
+            style="display:none"
+            {% endif %}
+            >
+            <th scope="row">
+                <label for="fixedHeight">
+                    {{ environment.translate('Fixed Table Height') }}
+                    {{ tooltip.icon(environment.translate('Fixed table height in px. This value must be less than the original table height to create a vertical scroll, otherwise you will not see that the fixed header / footer exists.')) }}
+                </label>
+            </th>
+            <td>
+                <input name="fixedHeight" id="fixedHeight" type="text" value="{{ table.settings.fixedHeight | default(400) }}">
+            </td>
+        </tr>
+        <tr class="table-editor-remove">
+            <th scope="row">
+                <label for="features-fixed-columns">
+                    {{ environment.translate('Fixed Columns') }}
+                    {{ tooltip.icon(environment.translate('Allows to fix columns during table scrolling. Important! The fixing of columns suggests that the table will have a horisontal scroll type of responsive mode, otherwise you will not see that the fixed columns exist. So this feature is a kind of responsive mode on its own and will not work with such Responsive Modes as Standard and Automatic columns hiding.')) }}
+                </label>
+            </th>
+            <td>
+                <input type="checkbox" name="fixedColumns"
+                {{ checkbox.checked(table.settings.fixedColumns) }}
+                id="features-fixed-columns"
+                data-target-toggle=".fixed-columns-options"/>
+                <!-- /#features-fixed-columns -->
+            </td>
+        </tr>
+        <tr class="fixed-columns-options table-editor-remove"
+        {% if table.settings.fixedColumns is not defined %}
+        style="display:none"
+        {% endif %}
+        >
+        <th scope="row">
+            <label for="fixedLeftColumnsCount">
+                {{ environment.translate('Left Columns Count') }}
+                {{ tooltip.icon(environment.translate('Number of column to fix by left side of table.')) }}
+            </label>
+        </th>
+        <td>
+            <input name="fixedLeftColumnsCount" id="fixedLeftColumnsCount" type="text" value="{{ table.settings.fixedLeftColumnsCount | default(1) }}">
+        </td>
+    </tr>
+    <tr class="fixed-columns-options"
+    {% if table.settings.fixedColumns is not defined %}
+    style="display:none"
+    {% endif %}
+    >
+    <th scope="row">
+        <label for="fixedRightColumnsCount">
+            {{ environment.translate('Right Columns Count') }}
+            {{ tooltip.icon(environment.translate('Number of column to fix by right side of table.')) }}
+        </label>
+    </th>
+    <td>
+        <input name="fixedRightColumnsCount" id="fixedRightColumnsCount" type="text" value="{{ table.settings.fixedRightColumnsCount | default(0) }}">
+    </td>
+</tr>
+<tr class="table-editor-remove">
+    <th scope="row">
+        <label for="autoIndex">
+            {{ environment.translate('Auto Index') }}
+        </label>
+    </th>
+    <td>
+        <select name="autoIndex" id="autoIndex">
+            {% for value, title in {'off': 'No index', 'first': 'Use first column', 'new':'Create new column'} %}
+            <option value="{{ value }}"
+            {% if table.settings.autoIndex == value %}
+            selected="selected"
+            {% endif %}>
+            {{ title }}
+        </option>
+        {% endfor %}
+    </select>
+</td>
+</tr>
+</table>
+<!-- /.form-table -->
+<h3 class="table-editor-remove">{{ environment.translate('Editor settings') }}</h3>
+<table class="form-table table-editor-remove">
+    <tbody>
+        <tr>
+            <th>
+                <label for="editor-use-number-format">
+                    {{ environment.translate('Use Number Format') }}
+                    {{ tooltip.icon(environment.translate('Set format of all numbers in the table')) }}
+                </label>
+            </th>
+            <td>
+                <input type="checkbox" name="useNumberFormat"
+                {{ checkbox.checked(table.settings.useNumberFormat) }}
+                id="editor-use-number-format" />
+            </td>
+        </tr>
+        <tr class="use-number-format-options"
+        {% if table.settings.useNumberFormat is not defined %}
+        style="display:none"
+        {% endif %}>
+        <th>
+            <label for="editor-set-number-format">
+                {{ environment.translate('Number Format') }}
+                {{ tooltip.icon(environment.translate('Set output format for numbers e.g. 1,000.00, 1.00')) }}
+            </label>
+        </th>
+        <td>
+            <input name="numberFormat" id="editor-set-number-format" type="text" value="{{ table.settings.numberFormat | default('1,000.00') }}">
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="editor-set-currency-format">
+                {{ environment.translate('Currency Format') }}
+                {{ tooltip.icon(environment.translate('Set output format for currencies e.g ($ 1,000.00, € 1.00)')) }}
+            </label>
+        </th>
+        <td>
+            <input name="currencyFormat" id="editor-set-currency-format" type="text" value="{{ table.settings.currencyFormat | default('$1,000.00') }}">
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="editor-set-percent-format">
+                {{ environment.translate('Percent Format') }}
+                {{ tooltip.icon(environment.translate('Set output format for percent numbers e.g (0.00%, 1%)')) }}
+            </label>
+        </th>
+        <td>
+            <input name="percentFormat" id="editor-set-percent-format" type="text" value="{{ table.settings.percentFormat | default('10.00%') }}">
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="editor-set-date-format">
+                {{ environment.translate('Date Format') }}
+                {{ tooltip.icon(environment.translate('Set output format for date e.g (YYYY-MM-DD, MM.DD.YYYY)')) }}
+            </label>
+        </th>
+        <td>
+            <input name="dateFormat" id="editor-set-date-format" type="text" value="{{ table.settings.dateFormat | default('DD.MM.YYYY') }}">
+        </td>
+    </tr>
+
+</tbody>
+</table>
+<h3 class="table-editor-remove">{{ environment.translate('Language') }}</h3>
+<table class="form-table table-editor-remove">
+    <tbody>
+        <tr>
+            <th scope="row">
+                <label for="language-file">
+                    {{ environment.translate('Select language') }}
+                </label>
+            </th>
+            <td>
+                <select name="language[file]" id="language-file">
+                    <option value="default"
+                    {% if table.settings.language.file is not defined or table.settings.language.file == 'default' or translations | length < 1 %}
+                    selected="selected"
+                    {% endif %}>
+                    English
+                </option>
+
+                {% for supportedLanguage in translations %}
+                <option value="{{ supportedLanguage }}"
+                {% if table.settings.language.file == supportedLanguage %}selected="selected"{% endif %}>
+                {{ supportedLanguage }}
+            </option>
+            {% endfor %}
+        </select>
+    </td>
+</tr>
+</tbody>
+</table>
+<h3 class="table-editor-remove">{{ environment.translate('Overwrite table text') }}</h3>
+<table class="form-table table-editor-remove">
+    <tbody>
+        {% set language_override = {
+        'emptyTable': {
+        'default': translate('No data available in table'),
+        'label': translate('Empty table'),
+    },
+    'info': {
+    'default': translate('Showing _START_ to _END_ of _TOTAL_ entries'),
+    'label': translate('Info text'),
+},
+'infoEmpty': {
+'default': translate('Showing 0 to 0 of 0 entries'),
+'label': translate('Empty info text'),
+},
+'infoFiltered': {
+'default': translate('(filtered from _MAX_ total entries)'),
+'label': translate('Filtered info text'),
+},
+'lengthMenu': {
+'default': translate('Show _MENU_ entries'),
+'label': translate('Length text'),
+},
+'search': {
+'default': translate('Search:'),
+'label': translate('Search label'),
+},
+'zeroRecords': {
+'default': translate('No matching records are found'),
+'label': translate('Zero records'),
+},
+} %}
+{% for key, data in language_override %}
+<tr>
+    <th scope="row">
+        <label for="language-{{ key }}">
+            {{ data.label }}
+        </label>
+    </th>
+    <td>
+        <input id="language-{{ key }}" type="text" name="language[{{ key }}]" value="{{ attribute(table.settings.language, key) }}" placeholder="{{ data.default }}">
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+<!-- /.col-md-4 col-sm-6 col-xs-12 -->
+<div class="col-md-4 col-sm-6 col-xs-12 table-editor-remove">
+    <h3 class="">{{ environment.translate('Features') }}</h3>
+    <table class="form-table">
+        <tr>
+            <th scope="row">
+                <label for="features-auto-width">
+                    {{ environment.translate('Auto Width') }}
+                    {{ tooltip.icon(environment.translate('Calculate the columns width on frontend automatically or depending on the columns width on the Editor Tab.')) }}
+                </label>
+            </th>
+            <td>
+                <input type="checkbox" name="features[auto_width]"
+                {{ checkbox.checked(table.settings.features.auto_width) }}
+                id="features-auto-width"/>
+                <!-- /#features-auto-width -->
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <label for="features-ordering">
+                    {{ environment.translate('Sorting') }}
+                    {{ tooltip.icon('<p style="width:227px; padding:5px margin:0">To allow dynamic sorting with arrows you must enable Header option.</p><img src="http://vwklhtmltables.com/_assets/tables/tooltip/Ordrering.jpg"/>', 'top', true) }}
+                </label>
+            </th>
+            <td>
+                <input type="checkbox" name="features[ordering]"
+                {{ checkbox.checked(table.settings.features.ordering) }}
+                id="features-ordering"
+                data-target-toggle=".sorting-options"/>
+                <!-- /#features-ordering -->
+            </td>
+        </tr>                        
+        <tr class="sorting-options" 
+        {% if table.settings.features.ordering is not defined %} 
+        style="display:none"
+        {% endif %} 
+        >
+        <th scope="row">
+            <label for="sortingOrder">
+                {{ environment.translate('Sorting Order') }}
+            </label>
+        </th>
+        <td>
+            <select name="sortingOrder">
+                <option value="asc">{{ environment.translate('Ascending') }}</option>
+                <option value="desc"
+                {% if table.settings.sortingOrder == 'desc' %}
+                selected="selected" 
+                {% endif %}
+                >{{ environment.translate('Descending') }}</option>
+            </select>
+        </td>
+    </tr>
+    <tr class="sorting-options"
+    {% if table.settings.features.ordering is not defined %} 
+    style="display:none"
+    {% endif %} 
+    >
+    <th scope="row">
+        <label for="sortingOrderColumn">
+            {{ environment.translate('Sorting Column') }}
+            {{ tooltip.icon(environment.translate('Number of column to apply sort order.')) }}
+        </label>
+    </th>
+    <td>
+        <input name="sortingOrderColumn" id="sortingOrderColumn" type="text" value="{{ table.settings.sortingOrderColumn | default(1) }}">
+    </td>
+</tr>
+<tr>
+    <th scope="row">
+        <label for="features-pagination">
+            {{ environment.translate('Pagination') }}
+            {{ tooltip.icon('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/Pagination.jpg"/>', 'top', true) }}
+        </label>
+    </th>
+    <td>
+        <input data-toggle="collapse" type="checkbox" name="features[paging]"
+        {{ checkbox.checked(table.settings.features.paging) }}
+        id="features-pagination"
+        data-target-toggle=".pagination-options"/>
+        <!-- /#features-pagination -->
+    </td>
+</tr>
+<tr class="pagination-options"
+{% if table.settings.features.paging is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="pagination-length">
+        {{ environment.translate('Pagination menu length') }}
+    </label>
+</th>
+<td>
+    <input type="text"
+    name="paginationMenuLength"
+    value="{{ table.settings.paginationMenuLength | default('50,100,All') }}"
+    id="pagination-length" />
+</td>
+</tr>
+<tr class="pagination-options"
+{% if table.settings.features.paging is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="pagination-size">
+        {{ environment.translate('Pagination Size') }}
+    </label>
+</th>
+<td>
+    <select name="paginationSize" id="pagination-size" >
+        {% for value, name in {
+        'pagination-large': environment.translate('Large'),
+        'pagination-medium': environment.translate('Medium'),
+        'pagination-small': environment.translate('Small'),
+    } %}
+    <option value="{{ value }}"
+    {% if value == table.settings.paginationSize|default('large') %}
+    selected="selected"
+    {% endif %}
+    >
+    {{ name }}
+</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+<tr>
+    <th scope="row">
+        <label for="features-searching">
+            {{ environment.translate('Searching') }}
+            {{ tooltip.icon('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/Searching.jpg"/>', 'top', true) }}
+        </label>
+    </th>
+    <td>
+        <input type="checkbox" name="features[searching]"
+        {{ checkbox.checked(table.settings.features.searching) }}
+        id="features-searching"
+        data-target-toggle=".searching-options"/>
+        <!-- /#features-searching -->
+    </td>
+</tr>
+<tr class="searching-options"
+{% if table.settings.features.searching is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="searching[resultOnly]">
+        {{ environment.translate('Show only search result') }}
+        {{ tooltip.icon(environment.translate('Table is empty by default and shows data only if search has a result.')) }}
+    </label>
+</th>
+<td>
+    <input type="checkbox" name="searching[resultOnly]"
+    {{ checkbox.checked(table.settings.searching.resultOnly) }}
+    >
+</td>
+</tr>
+<tr class="searching-options"
+{% if table.settings.features.searching is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="searching[strictMatching]">
+        {{ environment.translate('Strict matching') }}
+        {{ tooltip.icon(environment.translate('Display only entries with matching characters in the beginning of words')) }}
+    </label>
+</th>
+<td>
+    <input type="checkbox" name="searching[strictMatching]"
+    {{ checkbox.checked(table.settings.searching.strictMatching) }}
+    >
+</td>
+</tr>
+<tr class="searching-options"
+{% if table.settings.features.searching is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="searching[minChars]">
+        {{ environment.translate('Minimum characters') }}
+        {{ tooltip.icon(environment.translate('Minimum search field characters to start search')) }}
+    </label>
+</th>
+<td>
+   <input style="max-width: 50px"
+   type="text"
+   name="searching[minChars]"
+   value="{{ table.settings.searching.minChars|default('0') }}" />
+</td>
+</tr>
+<tr class="searching-options"
+{% if table.settings.features.searching is not defined %}
+style="display:none"
+{% endif %}
+>
+<th scope="row">
+    <label for="searching[showTable]">
+        {{ environment.translate('Show empty table') }}
+        {{ tooltip.icon(environment.translate('Show empty table, until you have entered the data to search field.')) }}
+    </label>
+</th>
+<td>
+   <input type="checkbox" name="searching[showTable]"
+   {{ checkbox.checked(table.settings.searching.showTable) }}
+   >
+</td>
+</tr>
+<tr class="table-editor-remove">
+    <th scope="row">
+        <label for="features-state-saving">
+            {{ environment.translate('Info') }}
+            {{ tooltip.icon(environment.translate('Table information display field. %s') | format('<img src="http://vwklhtmltables.com/_assets/tables/tooltip/info.jpg"/>') | raw, 'top', true) }}
+        </label>
+    </th>
+    <td>
+        <input type="checkbox" name="features[info]"
+        {{ checkbox.checked(table.settings.features.info) }}
+        id="features-state-saving"/>
+        <!-- /#features-state-saving -->
+    </td>
+</tr>
+<tr class="table-editor-remove">
+    <th scope="row">
+        <label for="disallowIndexing">
+            {{ environment.translate('Disallow Indexing') }}
+            {{ tooltip.icon(environment.translate('Disable indexing table for search bots')) }}
+        </label>
+    </th>
+    <td>
+        <input type="checkbox" name="disallowIndexing"
+        {{ checkbox.checked(table.settings.disallowIndexing) }} />
+    </td>
+</tr>
+{{ environment.getDispatcher().dispatch('tables-view-features', [table]) }}
+</table>
+<!-- /.form-table -->
+</div>
+<!-- /.col-md-4 col-sm-6 col-xs-12 -->
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <h3 class="table-editor-remove">{{ environment.translate('Responsive Settings') }}</h3>
+    <br><br><br>
+    <table class="form-table">
+        <tr class="table-editor-remove">
+            <th scope="row">
+                <label for="styling-border">
+                    {{ environment.translate('Borders') }}
+                    {{ tooltip.icon(environment.translate('Cell - adds border around all four sides of each cell, Row – adds border only over and under each row. (i.e. only for the rows).')) }}
+                </label>
+            </th>
+            <td>
+                <select name="styling[border]"
+                id="styling-border">
+                {% for option in [
+                { 'name': environment.translate('Cell'), 'value': 'cell-border' },
+                { 'name': environment.translate('Row'), 'value': 'row-border' },
+                { 'name': environment.translate('None'), 'value': 'no-border' }
+                ] %}
+                <option value="{{ option.value }}" {% if table.settings.styling.border == option.value %}selected="selected"{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+            </select>
+            <!-- /#styling-border -->
+        </td>
+    </tr>
+    <tr class="table-editor-remove">
+        <th scope="row">
+            <label for="styling-compact">
+                {{ environment.translate('Compact') }}
+                {{ tooltip.icon(environment.translate('Reduce the amount of white-space.')) }}
+            </label>
+        </th>
+        <td>
+            <input type="checkbox"
+            name="styling[compact]"
+            {{ checkbox.checked(attribute(table.settings.styling, 'compact')) }}
+            id="styling-compact"/>
+            <!-- /#styling-compact -->
+        </td>
+    </tr>
+    <tr class="table-editor-remove">
+        <th scope="row">
+            <label for="styling-hover">
+                {{ environment.translate('Highlighting') }}
+                {{ tooltip.icon(environment.translate('Row highlighting on mouse over.')) }}
+            </label>
+        </th>
+        <td>
+            <input type="checkbox" name="styling[hover]"
+            {{ checkbox.checked(attribute(table.settings.styling, 'hover')) }}
+            id="styling-hover"/>
+            <!-- /#styling-hover -->
+        </td>
+    </tr>
+    <tr class="table-editor-remove">
+        <th scope="row">
+            <label for="styling-nowrap">
+                {{ environment.translate('Disable Wrapping') }}
+                {{ tooltip.icon(environment.translate('Disable wrapping of content in the table, so all text in the cells is on a single line.')) }}
+            </label>
+        </th>
+        <td>
+            <input type="checkbox"
+            name="styling[nowrap]"
+            {{ checkbox.checked(attribute(table.settings.styling, 'nowrap')) }}
+            id="styling-nowrap"/>
+            <!-- /#styling-nowrap -->
+        </td>
+    </tr>
+    <tr class="table-editor-remove">
+        <th scope="row">
+            <label for="styling-order-column">
+                {{ environment.translate('Highlight the Order Column') }}
+                {{ tooltip.icon(environment.translate('Highlight the column that the table data is currently ordered on.')) }}
+            </label>
+        </th>
+        <td>
+            <input type="checkbox"
+            name="styling[order-column]"
+            {{ checkbox.checked(attribute(table.settings.styling, 'order-column')) }}
+            id="styling-order-column"/>
+            <!-- /#styling-order-column -->
+        </td>
+    </tr>
+    <tr class="table-editor-remove">
+        <th scope="row">
+            <label for="styling-stripe">
+                {{ environment.translate('Row Striping') }}
+                {{ tooltip.icon(environment.translate('Add automatic highlight of table rows for odd and even rows.')) }}
+            </label>
+        </th>
+        <td>
+            <input type="checkbox"
+            name="styling[stripe]"
+            {{ checkbox.checked(attribute(table.settings.styling, 'stripe')) }}
+            id="styling-stripe"/>
+            <!-- /#styling-stripe -->
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            <label for="styling-stripe">
+                {{ environment.translate('Responsive Settings') }}
+                {{ tooltip.icon(
+                environment.translate('Standard Responsive mode - in this mode if table content doesn’t fit all columns become under each other with one cell per row') ~ '<br>' ~ '<br>' ~
+                environment.translate('Automatic column hiding - in this mode table columns will collapse from right to left if content does not fit to parent container width') ~ '<br>' ~ '<br>' ~
+                environment.translate('Horizontal scroll - in this mode scroll bar will be added if table overflows parent container width') ~ '<br>' ~ 
+                environment.translate('Disable Responsivity - default table fluid layout') ~ '<br>'
+                ) }}
+            </label>
+        </th>
+        <td>
+            <select name="responsiveMode" id="features-export" >
+                {% for value, name in {
+                '0': environment.translate('Standard Responsive mode'),
+                '1': environment.translate('Automatic column hiding'),
+                '2': environment.translate('Horizontal scroll'),
+                '3': environment.translate('Disable Responsivity'),
+            } %}
+            <option value="{{ value }}" 
+            {% if value == table.settings.responsiveMode|default(0) %}
+            selected="selected"
+            {% endif %}
+            >
+            {{ name }}
+        </option>
+        {% endfor %}
+    </select>
+</td>
+</tr>
+<tr class="table-editor-remove">
+    <th scope="row">
+        <label for="paragraphMode">
+            {{ environment.translate('Paragraph Mode') }}
+            {{ tooltip.icon(environment.translate('This mode allows you to separate the content into paragraphs. To move to a new line in the cell - please press CTRL + Enter.')) }}
+        </label>
+    </th>
+    <td>
+        <input type="checkbox"
+        name="styling[paragraphMode]"
+        {{ checkbox.checked(attribute(table.settings.styling, 'paragraphMode')) }}
+        id="paragraphMode"/>
+    </td>
+</tr>
+</table>
+<!-- /.form-table -->
+</div>
+<!-- /.col-md-4 col-sm-6 col-xs-12 -->
+
+
+</div>
+</form>
+<div class="table-editor-remove row row-tab" id="row-tab-preview">
+    <div class="col-xs-12">
+        <div id="table-preview">
+        </div>
+        <!-- /#table-preview -->
+        <p class="description">
+            <i class="fa fa-fw fa-exclamation-circle"></i>
+            <!-- /.fa fa-fw fa-exclamation-circle -->
+            {{ environment.translate('Note that the table may look a little different depending on your theme style.') }}
+        </p>
+        <!-- /.description -->
+    </div>
+    <!-- /.col-xs-12 -->
+</div>
+<!-- /.row row-tab -->
+<div class="table-editor-remove row row-tab" id="row-tab-css">
+    <div class="col-xs-12">
+        {% set defaultCss %}/* Here you can add custom CSS for the current table */
+        /* Lean more about CSS: https://en.wikipedia.org/wiki/Cascading_Style_Sheets */
+        /*
+        To prevent the use of styles to other tables use "#vwklhtmltables-table-5" as a base selector
+        for example:
+        #vwklhtmltables-table-5 { ... }
+        #vwklhtmltables-table-5 tbody { ... }
+        #vwklhtmltables-table-5 tbody tr { ... }
+        */
+        {% endset %}
+        <div id="css-editor">{% if table.meta.css | length > 0 %}{{ table.meta.css }}{% else %}{{ defaultCss }}{% endif %}</div>
+    </div>
+</div>
+<div class="table-editor-remove">
+    {{ environment.getDispatcher().dispatch('tabs_content_rendered', [table]) }}</div>
+</div>
+<!-- /.container-fluid -->
+{{ environment.getDispatcher().dispatch('tables-view-footer') }}
+
+<div id="proPopup" style="display: none;"  class="table-editor-remove" title="{{ environment.translate('Get PRO version') }}">
+    <p>
+        Please be advised that this option is available only in
+        <a target="_blank" href="{{ build_pro_url({ 'utm_medium': 'import_export' }) }}" style="color: #000;">PRO
+            version</a>. You can
+            <a target="_blank" href="{{ build_pro_url({ 'utm_medium': 'import_export' }) }}" class="button vwklhtmltables-button"><span class="ui-button-text">Get PRO</span></a> today and get this and other PRO option for your tables!
+        </p>
+    </div>
+
+    <div id="cloneDialog" style="display: none;" title="Clone">
+        <div class="input-group">
+            <label>{{ environment.translate('Name') }}</label>
+            <input type="text">
+        </div>
+    </div>
+
+    <div id="editableFieldProFeatureDialog" style="display: none;" title="{{ environment.translate('Editable fields') }}">
+        {% set url = '<a target="_blank" href="' ~ build_pro_url({ 'utm_medium': 'editable_fields' }) ~ '" style="color: #000;">' ~ environment.translate('PRO version') ~ '</a>' %}
+        {% set url2 = '<a target="_blank" href="' ~ build_pro_url({ 'utm_medium': 'editable_fields' }) ~ '" style="color: #000;" class="button vwklhtmltables-button"><span class="ui-button-text">' ~ environment.translate('Get PRO') ~ '</span></a>' %}
+        <p>
+            {{ environment.translate('Please be advised that this option is available only in %s. You can %s today and get this and other PRO option for your tables!')|format(url, url2)|raw }}
+        </p>
+    </div>
+
+    <div id="addDiagramProFeatureDialog" class="table-editor-remove vwklhtmltables-plugin" style="display: none;" title="{{ environment.translate('Diagram') }}">
+        {% set url = build_pro_url({ 'utm_medium': 'diagrams' })  %}
+        <a href="{{ url }}" class="button button-hero" style="position: absolute; top: 63px; right: 20px; padding-top: 1px !important;" target="_blank">
+           {{ environment.translate('Get PRO') }}
+       </a>
+       <div id="previewDiagramProFeature" style="z-index: 10;" title="{{ environment.translate('Diagram') }}">
+        <div class="tab-switch" data-tabs>
+            <a class="active" href="#typeProFeature">{{ environment.translate('Type') }}</a>
+            <a href="#settingsProFeature">{{ environment.translate('Settings') }}</a>
+        </div>
+        <div class="tabs">
+            <div id="typeTabProFeature" class="tab active" data-tab="#typeProFeature">
+                <a href="{{ url }}" target="_blank">
+                    <img src="{{ environment.getModule('diagram').getLocationUrl() }}/assets/img/diagrams_dialog_type_tab.png" alt="Diagrams" title="diagrams_dialog_tab_1 Tab Content" style="width: 100%; height: auto;"/>
+                </a>
+            </div>
+            <div id="settingsTabProFeature" class="tab" data-tab="#settingsProFeature">
+                <a href="{{ url }}" target="_blank">
+                    <img src="{{ environment.getModule('diagram').getLocationUrl() }}/assets/img/diagrams_dialog_settings_tab.png" alt="Diagrams" title="Settings Tab Content" style="width: 100%; height: auto;"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="insertUrlDialog" style="display: none;" title="{{ environment.translate('Insert url') }}">
+    <div class="input-group">
+        <p>
+            <label>{{ environment.translate('Url') }}</label>
+            <input type="text" class="url" >
+        </p>
+        <p>                   
+            <label>{{ environment.translate('Link Text') }}</label>
+            <input type="text" class="link-text">
+        </p>
+        <p>
+            <label><span>&nbsp;</span>
+                <input type="checkbox" class="link-target">
+                <span>&nbsp;</span>{{ environment.translate('Open link in a new tab') }}
+            </label>
+        </p>
+    </div>
+</div>
+<a href="http://bit.ly/2m75f0m" target="_blank" style="margin-top: 20px; display: inline-block; width: 100%;">
+    <img src="http://bit.ly/2l540RL" alt="plugin info">
+</a>
+</div>
+<!-- /.vwklhtmltables-item -->
+{% endblock %}

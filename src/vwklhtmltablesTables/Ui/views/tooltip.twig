@@ -1,0 +1,14 @@
+{% macro attr(text, placement = 'top', html = false) %}
+    {% spaceless %}
+        data-toggle="tooltip" data-placement="{{ placement }}" data-html="{{ html }}" title="{{ text | escape }}"
+    {% endspaceless %}
+{% endmacro %}
+
+{% macro icon(text, placement = 'top', html = false) %}
+    {% import _self as tooltip %}
+
+    {% spaceless %}
+        <i class="fa fa-question vwklhtmltables-tooltip tooltipstered" {{ tooltip.attr(text, placement, html) }}></i>
+        <!-- /.fa fa-question vwklhtmltables-tooltip tooltipstered -->
+    {% endspaceless %}
+{% endmacro %}

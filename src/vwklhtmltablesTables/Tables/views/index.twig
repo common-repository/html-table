@@ -1,0 +1,64 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="vwklhtmltables-item vwklhtmltables-item-autoheight">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+
+                {% set columns = [
+                environment.translate('Table Name'),
+                environment.translate('Shortcode'),
+                environment.translate('')
+                ]
+                %}
+
+                <table id="tables" class="wp-list-table widefat">
+                    <thead>
+                        <tr>
+                            {% for column in columns %}
+                            <th scope="col">{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for table in tables %}
+
+                        <tr id="table-{{ table.id }}" data-table-id="{{ table.id }}">
+
+
+                            <td>
+                                <a href="{{ environment.generateUrl('tables', 'view', { 'id': table.id }) }}" data-toggle="tooltip" title="{{ environment.translate('Edit table "%s"') | format(table.title) }}">
+                                    {{ table.title }} - Edit
+                                </a>
+
+                            </td>
+
+                            <!-- /.button -->
+
+                        </td>
+                        <td>
+                            <input type="text" class="shortcode" readonly value="[{{ environment.config.get('shortcode_name') }} id='{{ table.id }}']">
+                        </td>
+
+                                   <td>
+                                <a class="button button-black-bg button-small"
+                                href="{{ environment.generateUrl('tables', 'view', { 'id': table.id }) }}">
+                                EDIT
+                                <!-- /.fa fa-fw fa-pencil -->
+                            </a>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- /.wp-list-table widefat -->
+
+        </div>
+        <!-- /.col-xs-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- /.vwklhtmltables-item -->
+{% endblock %}
